@@ -1,0 +1,10 @@
+# .idea
+.idea
+# venv
+.venv
+# source file
+source.txt
+# output file
+output.csv
+# key
+key.txt
