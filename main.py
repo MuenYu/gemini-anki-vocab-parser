@@ -30,6 +30,11 @@ Now you need to do the job for the vocab list below:
 """
 
 if __name__ == "__main__":
-    data = json.loads(ask_gemini(prompt).text)
-    export_csv(data, output)
-    print("Complete!")
+    data = json.loads(ask_gemini(prompt).text)['response']
+    if len(words) == len(data):
+        export_csv(data, output)
+        print("Complete!")
+    else:
+        print(f"return from gemini: {data}")
+        print(f"expected counts: {len(words)}, actual counts: {len(data)}")
+        print("gemini: data is not integrated")
