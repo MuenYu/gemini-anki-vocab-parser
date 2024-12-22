@@ -43,7 +43,7 @@ def export_csv(data, dst):
             print("Warning: No data to export.")
             return
 
-        header = ['front', 'definition', 'cn-definition']
+        header = ['front', 'definition', 'cn-definition', 'example', 'cn-example']
         with open(dst, 'w', newline='', encoding='utf-8') as csv_file:
             writer = csv.DictWriter(csv_file, fieldnames=header)
             writer.writerows(data)

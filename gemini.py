@@ -1,7 +1,6 @@
 from utils import *
 import google.generativeai as genai
 from google.generativeai.types import GenerationConfig
-from google.ai.generativelanguage_v1beta.types import content
 
 key = read_line_from_txt("key.txt")
 genai.configure(api_key=key)
@@ -29,6 +28,12 @@ generation_config = GenerationConfig(
                             "type": "string"
                         },
                         "cn-definition": {
+                            "type": "string"
+                        },
+                        "example": {
+                            "type": "string"
+                        },
+                        "cn-example": {
                             "type": "string"
                         }
                     }
