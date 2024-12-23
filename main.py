@@ -6,7 +6,7 @@ from utils import *
 source = './source.txt'
 output = './output.csv'
 words = read_lines_from_txt(source)
-prompt = f"""
+prompt = """
 I am an intermediate level English learner (B1-B2 level), and I want to improve my vocabulary.
 I will provide you with a vocabulary lists, and you need to explain these words in both English and Chinese ways.
 Your explanation should be concise and easy to grasp, considering my English skill.
@@ -14,7 +14,7 @@ Your explanation should be concise and easy to grasp, considering my English ski
 There are three properties per entry: front, definition and cn-definition
 
 - front: the vocab
-- definition: part of speech and its explanation. If multiple meaning available, list them all by frequency
+- definition: part of speech and its explanation in your own words. If multiple meaning available, list them all by frequency
 - cn-definition: It's not necessary to be the translation of definition, just explain in the most straight way
 - example: a simple sentence to demonstrate the correct usage of `front`
 - cn-example: the Chinese translation of example 
@@ -30,11 +30,18 @@ Here's an example, genital:
 Don't miss any properties for any entry!
 Now you need to do the job for the vocab list below:
 
-{words}
 """
+batch_size = 30
 
 if __name__ == "__main__":
-    data = json.loads(ask_gemini(prompt).text)
+    data = []
+    for i in range(0, len(words), batch_size):
+        batch = words[i:i + batch_size]
+        batch_prompt = f'{prompt}{batch}'
+        parsed_response = json.loads(ask_gemini(batch_prompt).text)
+        data += parsed_response
+        print(f'log: words {i+1} to {i+1+len(batch)} are done!')
+
     if len(words) == len(data):
         export_csv(data, output)
         print("Complete!")

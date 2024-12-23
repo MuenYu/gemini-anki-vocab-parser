@@ -14,29 +14,24 @@ generation_config = GenerationConfig(
     # response_mime_type="text/plain",
     response_mime_type="application/json",
     response_schema={
-        "type": "object",
-        "properties": {
-            "response": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "front": {
-                            "type": "string"
-                        },
-                        "definition": {
-                            "type": "string"
-                        },
-                        "cn-definition": {
-                            "type": "string"
-                        },
-                        "example": {
-                            "type": "string"
-                        },
-                        "cn-example": {
-                            "type": "string"
-                        }
-                    }
+        "type": "array",
+        "items": {
+            "type": "object",
+            "properties": {
+                "front": {
+                    "type": "string"
+                },
+                "definition": {
+                    "type": "string"
+                },
+                "cn-definition": {
+                    "type": "string"
+                },
+                "example": {
+                    "type": "string"
+                },
+                "cn-example": {
+                    "type": "string"
                 }
             }
         }
