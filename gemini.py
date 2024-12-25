@@ -1,17 +1,15 @@
 from utils import *
-import google.generativeai as genai
-from google.generativeai.types import GenerationConfig
+from google import genai
+from google.genai import types
 
-key = read_line_from_txt("key.txt")
-genai.configure(api_key=key)
+client = genai.Client(api_key=read_line_from_txt("key.txt"))
 
 # Create the model
-generation_config = GenerationConfig(
+generation_config = types.GenerateContentConfig(
     temperature=1,
     top_p=0.95,
     top_k=40,
     max_output_tokens=8192,
-    # response_mime_type="text/plain",
     response_mime_type="application/json",
     response_schema={
         "type": "array",
@@ -38,13 +36,6 @@ generation_config = GenerationConfig(
     }
 )
 
-model = genai.GenerativeModel(
-    model_name="gemini-exp-1206",
-    generation_config=generation_config,
-)
-
-chat_session = model.start_chat()
-
 
 def ask_gemini(prompt):
     """
@@ -52,4 +43,4 @@ def ask_gemini(prompt):
     :param prompt: model request
     :return: return from gemini
     """
-    return chat_session.send_message(prompt)
+    return client.models.generate_content(model='gemini-exp-1206', contents=prompt, config=generation_config)

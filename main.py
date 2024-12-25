@@ -31,16 +31,18 @@ Don't miss any properties for any entry!
 Now you need to do the job for the vocab list below:
 
 """
-batch_size = 30
+batch_size = 10
 
 if __name__ == "__main__":
     data = []
     for i in range(0, len(words), batch_size):
         batch = words[i:i + batch_size]
         batch_prompt = f'{prompt}{batch}'
-        parsed_response = json.loads(ask_gemini(batch_prompt).text)
+        resp = ask_gemini(batch_prompt).text
+        print(f'log: resp: {resp}')
+        parsed_response = json.loads(resp)
         data += parsed_response
-        print(f'log: words {i+1} to {i+1+len(batch)} are done!')
+        print(f'log: words {i+1} to {i+len(batch)} are done!')
 
     if len(words) == len(data):
         export_csv(data, output)
