@@ -31,7 +31,7 @@ Don't miss any properties for any entry!
 Now you need to do the job for the vocab list below:
 
 """
-batch_size = 10
+batch_size = 20
 
 if __name__ == "__main__":
     data = []
@@ -39,7 +39,6 @@ if __name__ == "__main__":
         batch = words[i:i + batch_size]
         batch_prompt = f'{prompt}{batch}'
         resp = ask_gemini(batch_prompt).text
-        print(f'log: resp: {resp}')
         parsed_response = json.loads(resp)
         data += parsed_response
         print(f'log: words {i+1} to {i+len(batch)} are done!')

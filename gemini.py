@@ -6,7 +6,7 @@ client = genai.Client(api_key=read_line_from_txt("key.txt"))
 
 # Create the model
 generation_config = types.GenerateContentConfig(
-    temperature=1,
+    temperature=1.1,
     top_p=0.95,
     top_k=40,
     max_output_tokens=8192,

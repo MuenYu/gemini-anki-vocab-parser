@@ -4,9 +4,9 @@ __pycache__
 .idea
 # venv
 .venv
-# source file
-source.txt
+# source and key file
+*.txt
 # output file
-output.csv
-# key
-key.txt
+*.csv
+# tester
+tester.py
