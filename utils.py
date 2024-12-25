@@ -37,13 +37,12 @@ def read_line_from_txt(filepath):
         exit(1)
 
 
-def export_csv(data, dst):
+def export_csv(header, data, dst):
     try:
         if not data:
             print("Warning: No data to export.")
             return
 
-        header = ['front', 'definition', 'cn-definition', 'example', 'cn-example']
         with open(dst, 'w', newline='', encoding='utf-8') as csv_file:
             writer = csv.DictWriter(csv_file, fieldnames=header)
             writer.writerows(data)

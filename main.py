@@ -1,52 +1,16 @@
-import json
-
-from gemini import *
+from anki import gen_anki_cards
+from story import gen_story
 from utils import *
 
 source = './source.txt'
 output = './output.csv'
 words = read_lines_from_txt(source)
-prompt = """
-I am an intermediate level English learner (B1-B2 level), and I want to improve my vocabulary.
-I will provide you with a vocabulary lists, and you need to explain these words in both English and Chinese ways.
-Your explanation should be concise and easy to grasp, considering my English skill.
 
-There are three properties per entry: front, definition and cn-definition
-
-- front: the vocab
-- definition: part of speech and its explanation in your own words. If multiple meaning available, list them all by frequency
-- cn-definition: It's not necessary to be the translation of definition, just explain in the most straight way
-- example: a simple sentence to demonstrate the correct usage of `front`
-- cn-example: the Chinese translation of example 
-
-Here's an example, genital:
-
-    "front": "genital",
-    "definition": "n. the organ to have sex\nadj. relating to the organs of reproduction",
-    "cn-definition": "n. 生殖器官\nadj. 生殖器的"
-    "example"： "Men and women have different genitals"
-    "cn-example"： "男性和女性有不同的生殖器"
-
-Don't miss any properties for any entry!
-Now you need to do the job for the vocab list below:
-
-"""
 batch_size = 20
+is_card_mode = False
 
 if __name__ == "__main__":
-    data = []
-    for i in range(0, len(words), batch_size):
-        batch = words[i:i + batch_size]
-        batch_prompt = f'{prompt}{batch}'
-        resp = ask_gemini(batch_prompt).text
-        parsed_response = json.loads(resp)
-        data += parsed_response
-        print(f'log: words {i+1} to {i+len(batch)} are done!')
-
-    if len(words) == len(data):
-        export_csv(data, output)
-        print("Complete!")
+    if is_card_mode:
+        gen_anki_cards(words,batch_size,output)
     else:
-        print(f"return from gemini: {data}")
-        print(f"expected counts: {len(words)}, actual counts: {len(data)}")
-        print("gemini: data is not integrated")
+        gen_story(words, batch_size, output)
