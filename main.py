@@ -7,7 +7,7 @@ output = './output.csv'
 words = read_lines_from_txt(source)
 
 batch_size = 20
-is_card_mode = False
+is_card_mode = True
 
 if __name__ == "__main__":
     if is_card_mode:

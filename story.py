@@ -29,18 +29,11 @@ header = ['story']
 
 
 def gen_story(words, batch_size, output):
-    data = []
     for i in range(0, len(words), batch_size):
         batch = words[i:i + batch_size]
         batch_prompt = f'{prompt}{batch}'
-        resp = ask_gemini(generation_config, batch_prompt).text
-        data += resp
+        data = ask_gemini(generation_config, batch_prompt).text
+        export_csv(header, data, output)
         print(f'log: words {i + 1} to {i + len(batch)} are done!')
 
-    if len(words) == len(data):
-        export_csv(header, data, output)
-        print("Complete!")
-    else:
-        print(f"return from gemini: {data}")
-        print(f"expected counts: {len(words)}, actual counts: {len(data)}")
-        print("gemini: data is not integrated")
+    print("Complete!")

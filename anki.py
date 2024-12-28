@@ -66,19 +66,17 @@ header = ['front', 'definition', 'cn-definition', 'example', 'cn-example']
 
 
 def gen_anki_cards(words, batch_size, output):
-    data = []
     for i in range(0, len(words), batch_size):
         batch = words[i:i + batch_size]
         batch_prompt = f'{prompt}{batch}'
         resp = ask_gemini(generation_config, batch_prompt).text
         parsed_response = json.loads(resp)
-        data += parsed_response
-        print(f'log: words {i + 1} to {i + len(batch)} are done!')
-
-    if len(words) == len(data):
-        export_csv(header, data, output)
-        print("Complete!")
-    else:
-        print(f"return from gemini: {data}")
-        print(f"expected counts: {len(words)}, actual counts: {len(data)}")
-        print("gemini: data is not integrated")
+        if len(batch) == len(parsed_response):
+            export_csv(header, parsed_response, output)
+            print(f'log: words {i + 1} to {i + len(batch)} are done!')
+        else:
+            print(f"return from gemini: {parsed_response}")
+            print(f"expected counts: {len(words)}, actual counts: {len(parsed_response)}")
+            print("gemini: data is not integrated")
+            exit(1)
+    print("Complete!")

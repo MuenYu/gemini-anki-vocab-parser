@@ -43,7 +43,7 @@ def export_csv(header, data, dst):
             print("Warning: No data to export.")
             return
 
-        with open(dst, 'w', newline='', encoding='utf-8') as csv_file:
+        with open(dst, 'a', newline='', encoding='utf-8') as csv_file:
             writer = csv.DictWriter(csv_file, fieldnames=header)
             writer.writerows(data)
     except Exception as e:
