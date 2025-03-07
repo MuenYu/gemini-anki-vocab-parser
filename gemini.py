@@ -10,4 +10,4 @@ def ask_gemini(config, prompt):
     :param prompt: model request
     :return: return from gemini
     """
-    return client.models.generate_content(model='gemini-exp-1206', contents=prompt, config=config)
+    return client.models.generate_content(model='gemini-2.0-flash', contents=prompt, config=config)

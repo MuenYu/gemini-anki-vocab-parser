@@ -6,16 +6,16 @@ from gemini import ask_gemini
 from utils import export_csv
 
 prompt = """
-I am an intermediate level English learner (B1-B2 level), and I want to improve my vocabulary.
+I am an intermediate level English learner (B1-B2 level), working as a software developer, and I want to improve my vocabulary.
 I will provide you with a vocabulary lists, and you need to explain these words in both English and Chinese ways.
-Your explanation should be concise and easy to grasp, considering my English skill.
+Your explanation should be concise and intuitive, considering my English skill and background, helping me learn within the context.
 
-There are three properties per entry: front, definition and cn-definition
+There are five properties per entry: front, definition, cn-definition, example and cn-example:
 
 - front: the vocab
 - definition: part of speech and its explanation in your own words. If multiple meaning available, list them all by frequency
-- cn-definition: It's not necessary to be the translation of definition, just explain in the most straight way
-- example: a simple sentence to demonstrate the correct usage of `front`
+- cn-definition: It's not necessary to be the direct translation of definition, just explain in the most natual way
+- example: make one sentence only with the given form of vocab `front` with its most common meaning. if the sentence is given, then keep it
 - cn-example: the Chinese translation of example 
 
 Here's an example, genital:
@@ -33,7 +33,7 @@ Now you need to do the job for the vocab list below:
 
 # Create the model
 generation_config = types.GenerateContentConfig(
-    temperature=1.1,
+    temperature=1.0,
     top_p=0.95,
     top_k=40,
     max_output_tokens=8192,
